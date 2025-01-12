@@ -1,20 +1,27 @@
-﻿import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+﻿﻿﻿// src/App.tsx
+import React from "react";
+import { Route, Routes, Link } from "react-router-dom";
 
-import Home from './pages/Home';
-import About from './pages/About';
-import Services from './pages/Services';
-import Contact from './pages/Contact';
+import HomePage from "./pages/HomePage/HomePage";
+import About from "./pages/about/About";
+import Services from "./pages/services/Services";
+import Contact from "./pages/contact/Contact";
 
 const App: React.FC = () => {
   return (
     <div>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/about" component={About} />
-        <Route path="/services" component={Services} />
-        <Route path="/contact" component={Contact} />
-      </Switch>
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
+        <Link to="/services">Services</Link>
+        <Link to="/contact">Contact</Link>
+      </nav>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
     </div>
   );
 };
