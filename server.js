@@ -7,7 +7,19 @@ app.use(express.static('public'));
 
 // Route for the home page
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/hero-section.html');
+    res.sendFile(__dirname + '/public/index.html');
+});
+
+app.get('/about.html', (req, res) => {
+    res.sendFile(__dirname + '/public/about.html');
+});
+
+app.get('/services.html', (req, res) => {
+    res.sendFile(__dirname + '/public/services.html');
+});
+
+app.get('/contact.html', (req, res) => {
+    res.sendFile(__dirname + '/public/contact.html');
 });
 
 // Error Handling for 404

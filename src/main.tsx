@@ -1,26 +1,16 @@
-import { StrictMode } from 'react';
+// index.tsx
+import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import { registerSW } from 'virtual:pwa-register';
-import App from './App.tsx';
-import './index.css';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-// Register service worker
-registerSW({
-  onNeedRefresh() {
-    if (confirm('New content available. Reload?')) {
-      window.location.reload();
-    }
-  },
-  onOfflineReady() {
-    console.log('App ready to work offline');
-  },
-});
+import App from './App';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <BrowserRouter>
+const root = createRoot(document.getElementById('root') as HTMLElement);
+
+root.render(
+  <React.StrictMode>
+    <Router>
       <App />
-    </BrowserRouter>
-  </StrictMode>
+    </Router>
+  </React.StrictMode>
 );

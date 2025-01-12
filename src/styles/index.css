@@ -32,49 +32,53 @@ nav a:hover {
 }
 
 /* Hero Section */
-.hero {
-    position: relative;
+.hero-section {
     height: 100vh;
+    background-image: url('/images/hero-image.jpg');
+    background-size: cover;
+    background-position: center;
     display: flex;
-    align-items: center;
     justify-content: center;
-    overflow: hidden;
-}
-
-.hero-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-}
-
-.hero-overlay {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
     text-align: center;
 }
 
+.hero-overlay {
+    background-color: rgba(0, 0, 0, 0.5); /* Add an overlay for better text visibility */
+    padding: 2em;
+}
+
 .hero-text h1 {
-    font-size: 3.5rem;
-    text-shadow: 0 0 20px #fedd58;
+    font-size: 3rem;
+    margin-bottom: 0.5em;
 }
 
 .hero-text p {
-    font-size: 1.5rem;
-    text-shadow: 0 0 10px #d174ec;
+    font-size: 1.2rem;
+}
+
+/* About Section */
+.about-section {
+    background-color: #4a3f54;
+    color: #fff;
+}
+
+/* Services Section */
+.services-section {
+    background-color: #5e5066;
+    color: #fff;
+}
+
+/* Contact Section */
+.contact-section {
+    background-color: #72617e;
+    color: #fff;
 }
 
 /* Main Content Sections */
 main section {
     padding: 4em 2em;
     text-align: center;
-    background-color: #37283b;
 }
 
 /* Footer */
@@ -101,4 +105,21 @@ footer {
     .hero-text p {
         font-size: 0.9rem;
     }
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Apply fade-in to sections */
+main section {
+    animation: fadeIn 1s ease-out forwards;
 }
