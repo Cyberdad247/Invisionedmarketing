@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import os
+
 from routes import health, agents, crew
 
 app = FastAPI(title="Invisionedmarketing API")
@@ -21,3 +23,7 @@ app.include_router(crew.router, prefix="/api/v1")
 @app.get("/")
 def read_root():
     return {"message": "Invisionedmarketing FastAPI Backend"}
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
