@@ -8,22 +8,59 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.2",
-    "zustand": "^4.3.6"
+    "zustand": "^4.3.6",
+    "@tanstack/react-query": "^5.74.4",
+    "ai": "^4.3.5",
+    "js-cookie": "^3.0.5",
+    "jwt-decode": "^4.0.0"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.14",
     "@types/node": "^18.14.6",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react": "^3.1.0",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.7",
     "typescript": "^4.9.5",
-    "vite": "^4.1.4",
-    "@vitejs/plugin-react": "^3.1.0"
+    "vite": "^4.1.4"
   },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "jsdom",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "rootDir": ".",
+    "testMatch": [
+      "<rootDir>/src/**/*.test.(ts|tsx)",
+      "<rootDir>/tests/**/*.test.(ts|tsx)"
+    ]
+  },
+  "links": [
+    {
+      "href": "https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Share+Tech+Mono&display=swap",
+      "rel": "stylesheet"
+    }
+  ],
+  "components": {
+    "HeroAgent": {
+      "code": "export default function HeroAgent() {\n  return (\n    <div className=\"flex flex-col items-center justify-center py-16 bg-gradient-to-b from-black via-[#18181b] to-[#0a0a0a]\">\n      <img src=\"/assets/agent-silhouette.svg\" alt=\"Agent Silhouette\" className=\"w-48 h-48 drop-shadow-[0_0_32px_#BF00FF]\" />\n      <h1 className=\"text-5xl font-orbitron text-gold mt-8 tracking-widest\">Welcome, Agent</h1>\n      <p className=\"text-xl text-accent mt-4\">Your mission awaits in the Matrix.</p>\n    </div>\n  )\n}"
+    },
+    "CyberButton": {
+      "code": "export function CyberButton({ children, ...props }) {\n  return (\n    <button\n      className=\"bg-gradient-to-r from-electric to-gold text-background font-orbitron px-6 py-2 rounded shadow-[0_0_16px_#BF00FF88] hover:shadow-[0_0_32px_#FFD70088] transition\"\n      {...props}\n    >\n      {children}\n    </button>\n  )\n}"
+    }
   }
 }

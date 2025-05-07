@@ -3,7 +3,36 @@
 @tailwind utilities;
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  background: #0a0a0a;
+  color: #FFD700;
+  font-family: 'Orbitron', 'Share Tech Mono', 'Arial', sans-serif;
+  letter-spacing: 0.02em;
+}
+
+a, .text-accent {
+  color: #BF00FF;
+}
+
+button, .btn, .bg-accent {
+  background: linear-gradient(90deg, #BF00FF 0%, #FFD700 100%);
+  color: #0a0a0a;
+  border: none;
+  box-shadow: 0 0 8px #BF00FF88, 0 0 16px #FFD70044;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.card, .bg-card {
+  background: #18181b;
+  border: 1px solid #BF00FF44;
+  box-shadow: 0 2px 24px #BF00FF22;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #BF00FF;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
 }
 
 @layer utilities {
