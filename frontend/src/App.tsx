@@ -1,14 +1,14 @@
+// frontend/src/App.tsx (updated)
 import type React from "react"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { AgentCreatePage } from "./pages/AgentCreatePage"
 import { AgentDetailPage } from "./pages/AgentDetailPage"
 import { AgentList } from "./components/AgentList"
 import WorkflowCreatePage from "./pages/WorkflowCreatePage"
-import { Toaster } from "@/components/ui/toaster"
-// Import ACI pages
-import AciAppStorePage from "./pages/AciAppStorePage"
-import AciAgentPlaygroundPage from "./pages/AciAgentPlaygroundPage"
-import AciMcpToolsPage from "./pages/AciMcpToolsPage"
+import MerlinInterface from "./components/merlin/MerlinInterface"
+import DeveloperRealm from "./components/developer/DeveloperRealm"
+import VMSandbox from "./components/sandbox/VMSandbox"
+import { Toaster } from "../components/ui/toaster"
 
 const App: React.FC = () => {
   return (
@@ -40,24 +40,23 @@ const App: React.FC = () => {
                   >
                     Workflows
                   </a>
-                  {/* ACI Navigation Links */}
                   <a
-                    href="/aci/app-store"
+                    href="/merlin"
                     className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                   >
-                    ACI App Store
+                    Merlin
                   </a>
                   <a
-                    href="/aci/playground"
+                    href="/developer"
                     className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                   >
-                    Agent Playground
+                    Developer
                   </a>
                   <a
-                    href="/aci/mcp-tools"
+                    href="/sandbox"
                     className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                   >
-                    MCP Tools
+                    Sandbox
                   </a>
                 </div>
               </div>
@@ -74,11 +73,9 @@ const App: React.FC = () => {
                 <Route path="/agents/create" element={<AgentCreatePage />} />
                 <Route path="/agents/:id" element={<AgentDetailPage />} />
                 <Route path="/workflows/create" element={<WorkflowCreatePage />} />
-                {/* Add more routes as needed */}
-                {/* ACI Routes */}
-                <Route path="/aci/app-store" element={<AciAppStorePage />} />
-                <Route path="/aci/playground" element={<AciAgentPlaygroundPage />} />
-                <Route path="/aci/mcp-tools" element={<AciMcpToolsPage />} />
+                <Route path="/merlin" element={<MerlinInterface />} />
+                <Route path="/developer" element={<DeveloperRealm />} />
+                <Route path="/sandbox" element={<VMSandbox />} />
               </Routes>
             </div>
           </main>
