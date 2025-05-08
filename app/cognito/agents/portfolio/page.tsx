@@ -5,128 +5,168 @@ import { ArrowLeft, PlusCircle } from "lucide-react"
 import Link from "next/link"
 import AgentPortfolioCard from "@/components/cognito/agent-portfolio-card"
 
+export type AgentId =
+  | "strategos"
+  | "lexica"
+  | "visio"
+  | "optimus"
+  | "connecta"
+  | "crawler"
+  | "fixer"
+  | "insight"
+  | "converse"
+  | "sentinel"
+  | "nexuslink";
+
+export type AgentRole =
+  | "Strategic Planning"
+  | "Content Creation (Text)"
+  | "Content Creation (Visual)"
+  | "Media Buying & Optimization"
+  | "Social Media Management"
+  | "SEO Audit"
+  | "Technical Optimization"
+  | "Analytics & Reporting"
+  | "Client Communication"
+  | "Error Handling"
+  | "Human Interface";
+
+export type AgentAutonomyLevel = "medium" | "low" | "high";
+export type AgentColor =
+  | "blue"
+  | "indigo"
+  | "purple"
+  | "green"
+  | "cyan"
+  | "amber"
+  | "orange"
+  | "sky"
+  | "pink"
+  | "red"
+  | "violet";
+
 export default function AgentPortfolioPage() {
   // The 11 specialized AI agents with their details
   const agentPortfolio = [
     {
-      id: "strategos",
+      id: "strategos" as AgentId,
       name: "Strategos",
-      role: "Strategic Planning",
+      role: "Strategic Planning" as AgentRole,
       description: "Handles market analysis, goal setting, and audience definition for marketing campaigns.",
       coreSkills: ["Market Analysis", "Goal Setting", "Audience Definition"],
       hitlPoints: ["Strategy Approval", "Budget Allocation"],
-      autonomyLevel: "medium",
-      color: "blue",
+      autonomyLevel: "medium" as AgentAutonomyLevel,
+      color: "blue" as AgentColor,
       icon: "📊",
     },
     {
-      id: "lexica",
+      id: "lexica" as AgentId,
       name: "Lexica",
-      role: "Content Creation (Text)",
+      role: "Content Creation (Text)" as AgentRole,
       description: "Creates blog posts, ad copy, and social media content with brand-aligned messaging.",
       coreSkills: ["Blog Writing", "Ad Copy", "Social Media Posts"],
       hitlPoints: ["Key Content Approval", "Brand Voice Check"],
-      autonomyLevel: "medium",
-      color: "indigo",
+      autonomyLevel: "medium" as AgentAutonomyLevel,
+      color: "indigo" as AgentColor,
       icon: "📝",
     },
     {
-      id: "visio",
+      id: "visio" as AgentId,
       name: "Visio",
-      role: "Content Creation (Visual)",
+      role: "Content Creation (Visual)" as AgentRole,
       description: "Generates images and basic graphic designs for marketing materials and social media.",
       coreSkills: ["Image Generation", "Basic Graphic Design"],
       hitlPoints: ["Brand-Sensitive Visual Approval"],
-      autonomyLevel: "low",
-      color: "purple",
+      autonomyLevel: "low" as AgentAutonomyLevel,
+      color: "purple" as AgentColor,
       icon: "🎨",
     },
     {
-      id: "optimus",
+      id: "optimus" as AgentId,
       name: "Optimus",
-      role: "Media Buying & Optimization",
+      role: "Media Buying & Optimization" as AgentRole,
       description: "Manages ad platforms and controls budgets for optimal campaign performance.",
       coreSkills: ["Ad Platform Management", "Budget Control"],
       hitlPoints: ["Budget Limits", "Campaign Changes"],
-      autonomyLevel: "medium",
-      color: "green",
+      autonomyLevel: "medium" as AgentAutonomyLevel,
+      color: "green" as AgentColor,
       icon: "💰",
     },
     {
-      id: "connecta",
+      id: "connecta" as AgentId,
       name: "Connecta",
-      role: "Social Media Management",
+      role: "Social Media Management" as AgentRole,
       description: "Handles post scheduling and engagement across social media platforms.",
       coreSkills: ["Post Scheduling", "Engagement"],
       hitlPoints: ["Crisis Response", "High-Impact Initiatives"],
-      autonomyLevel: "high",
-      color: "cyan",
+      autonomyLevel: "high" as AgentAutonomyLevel,
+      color: "cyan" as AgentColor,
       icon: "🔄",
     },
     {
-      id: "crawler",
+      id: "crawler" as AgentId,
       name: "Crawler",
-      role: "SEO Audit",
+      role: "SEO Audit" as AgentRole,
       description: "Analyzes websites and researches keywords to improve search engine visibility.",
       coreSkills: ["Website Analysis", "Keyword Research"],
       hitlPoints: ["Major Technical SEO Changes"],
-      autonomyLevel: "high",
-      color: "amber",
+      autonomyLevel: "high" as AgentAutonomyLevel,
+      color: "amber" as AgentColor,
       icon: "🔍",
     },
     {
-      id: "fixer",
+      id: "fixer" as AgentId,
       name: "Fixer",
-      role: "Technical Optimization",
+      role: "Technical Optimization" as AgentRole,
       description: "Makes code adjustments and schema markup to improve website performance.",
       coreSkills: ["Code Adjustments", "Schema Markup"],
       hitlPoints: ["Significant Website Modifications"],
-      autonomyLevel: "low",
-      color: "orange",
+      autonomyLevel: "low" as AgentAutonomyLevel,
+      color: "orange" as AgentColor,
       icon: "🔧",
     },
     {
-      id: "insight",
+      id: "insight" as AgentId,
       name: "Insight",
-      role: "Analytics & Reporting",
+      role: "Analytics & Reporting" as AgentRole,
       description: "Analyzes data and tracks KPIs to provide actionable marketing insights.",
       coreSkills: ["Data Analysis", "KPI Tracking"],
       hitlPoints: ["Complex Report Interpretation"],
-      autonomyLevel: "high",
-      color: "sky",
+      autonomyLevel: "high" as AgentAutonomyLevel,
+      color: "sky" as AgentColor,
       icon: "📈",
     },
     {
-      id: "converse",
+      id: "converse" as AgentId,
       name: "Converse",
-      role: "Client Communication",
+      role: "Client Communication" as AgentRole,
       description: "Handles automated updates and meeting scheduling with clients.",
       coreSkills: ["Automated Updates", "Meeting Scheduling"],
       hitlPoints: ["Onboarding", "Strategic Discussions"],
-      autonomyLevel: "medium",
-      color: "pink",
+      autonomyLevel: "medium" as AgentAutonomyLevel,
+      color: "pink" as AgentColor,
       icon: "💬",
     },
     {
-      id: "sentinel",
+      id: "sentinel" as AgentId,
       name: "Sentinel",
-      role: "Error Handling",
+      role: "Error Handling" as AgentRole,
       description: "Analyzes logs and performs system checks to identify and resolve issues.",
       coreSkills: ["Log Analysis", "System Checks"],
       hitlPoints: ["Complex Error Escalation"],
-      autonomyLevel: "high",
-      color: "red",
+      autonomyLevel: "high" as AgentAutonomyLevel,
+      color: "red" as AgentColor,
       icon: "🛡️",
     },
     {
-      id: "nexuslink",
+      id: "nexuslink" as AgentId,
       name: "NexusLink",
-      role: "Human Interface",
+      role: "Human Interface" as AgentRole,
       description: "Presents data and handles interventions between AI systems and human operators.",
       coreSkills: ["Data Presentation", "Intervention Handling"],
       hitlPoints: ["All human interactions"],
-      autonomyLevel: "low",
-      color: "violet",
+      autonomyLevel: "low" as AgentAutonomyLevel,
+      color: "violet" as AgentColor,
       icon: "🔗",
     },
   ]

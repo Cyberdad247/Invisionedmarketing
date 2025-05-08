@@ -4,7 +4,6 @@
   "installCommand": "npm install",
   "framework": "nextjs",
   "outputDirectory": ".next",
-  "regions": ["iad1"],
   "crons": [
     {
       "path": "/api/cron/workflow-scheduler",
@@ -12,6 +11,6 @@
     }
   ],
   "env": {
-    "NEXT_PUBLIC_APP_URL": "https://cognito-platform.vercel.app"
+    "NEXT_PUBLIC_APP_URL": "{$NEXT_PUBLIC_APP_URL}"
   }
 }

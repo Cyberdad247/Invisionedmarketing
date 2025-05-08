@@ -15,9 +15,9 @@ const nextConfig = {
     unoptimized: true,
   },
   
-  // Increase serverless function timeout for AI operations
-  serverRuntimeConfig: {
-    // Will only be available on the server side
+  // Enable experimental server actions and configure function timeout
+  experimental: {
+    serverActions: true,
     functionTimeout: 60, // seconds
   },
   
@@ -34,12 +34,10 @@ const nextConfig = {
   
   // Ignore ESLint errors during build
   eslint: {
-    ignoreDuringBuilds: true,
   },
   
   // Ignore TypeScript errors during build
   typescript: {
-    ignoreBuildErrors: true,
   },
 }
 

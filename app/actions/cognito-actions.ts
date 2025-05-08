@@ -10,7 +10,11 @@ import type {
   PendingReview,
   SystemAlert,
   DataSource,
-} from "@/types/cognito"
+} from "@/types/cognito";
+
+export type DataSourceType = "google_ads" | "meta" | "linkedin";
+export type SystemAlertType = "warning" | "error";
+export type GlobalAutonomyLevel = "manual" | "assisted" | "autonomous";
 
 // Define WorkflowNode and WorkflowEdge types
 // These are placeholder types. Replace with your actual types.
@@ -184,21 +188,21 @@ export async function getDataSources(): Promise<DataSource[]> {
     {
       id: 1,
       name: "Google Ads",
-      type: "google_ads",
+      type: "google_ads" as DataSourceType,
       connectionDetails: { accountId: "123456789" },
       status: "connected",
     },
     {
       id: 2,
       name: "Meta Ads",
-      type: "meta",
+      type: "meta" as DataSourceType,
       connectionDetails: { accountId: "987654321" },
       status: "connected",
     },
     {
       id: 3,
       name: "LinkedIn Ads",
-      type: "linkedin",
+      type: "linkedin" as DataSourceType,
       connectionDetails: { accountId: "567891234" },
       status: "disconnected",
     },
@@ -238,7 +242,7 @@ export async function getSystemAlerts(): Promise<SystemAlert[]> {
   return [
     {
       id: 1,
-      type: "warning",
+      type: "warning" as SystemAlertType,
       message: "Campaign 'Spring Promotion' is approaching budget limit",
       source: "Optimus",
       timestamp: new Date().toISOString(),
@@ -246,7 +250,7 @@ export async function getSystemAlerts(): Promise<SystemAlert[]> {
     },
     {
       id: 2,
-      type: "error",
+      type: "error" as SystemAlertType,
       message: "Failed to connect to Google Ads API",
       source: "NexusLink",
       timestamp: new Date().toISOString(),
@@ -255,7 +259,7 @@ export async function getSystemAlerts(): Promise<SystemAlert[]> {
   ]
 }
 
-export async function updateGlobalAutonomy(level: "manual" | "assisted" | "autonomous"): Promise<{ success: boolean }> {
+export async function updateGlobalAutonomy(level: GlobalAutonomyLevel): Promise<{ success: boolean }> {
   // This would typically update a system settings table
   // For now, we'll just return success
   return { success: true }

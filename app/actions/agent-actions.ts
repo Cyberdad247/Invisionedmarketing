@@ -3,6 +3,8 @@
 import { executeQuery } from "@/lib/db"
 import { revalidatePath } from "next/cache"
 
+export type AgentStatus = "active" | "inactive" | "draft";
+
 export type Agent = {
   id: number
   name: string
@@ -12,7 +14,7 @@ export type Agent = {
   max_tokens: number
   temperature: number
   streaming: boolean
-  status: "active" | "inactive" | "draft"
+  status: AgentStatus
   created_at: string
   updated_at: string
 }

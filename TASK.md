@@ -1,39 +1,47 @@
-# Invisionedmarketing Project Tasks
+# Project Tasks
 
-## Completed Tasks
-- [x] Initialize project monorepo structure (root, /frontend, /backend). (2025-05-05)
-- [x] Create and populate root `README.md` with basic project overview, monorepo structure explanation, and setup guidance. (2025-05-05)
-- [x] Create `/frontend` directory and initialize React project using Vite. (2025-05-05)
-- [x] Configure frontend dependency management with npm. (2025-05-05)
-- [x] Create `/backend` directory and initialize Python project. (2025-05-05)
-- [x] Install initial Python dependencies in `/backend`: `fastapi`, `uvicorn`, `pydantic`. (2025-05-05)
-- [x] Create basic FastAPI application structure in `/backend` (`main.py`, initial `/routes`, `/schemas`, `/utils` directories). (2025-05-05)
-- [x] Implement a simple "Hello, World" GET endpoint in `/backend/routes/health.py` and include it in `main.py` to verify basic FastAPI setup. (2025-05-05)
-- [x] Create basic Dockerfile for the FastAPI backend service. (2025-05-05)
-- [x] Create basic Dockerfile for the React frontend service. (2025-05-05)
-- [x] Create initial `docker-compose.yml` file to define and run the frontend and backend services. (2025-05-05)
-- [x] Create initial `README.md` files in both `/frontend` and `/backend` directories. (2025-05-05)
-- [x] Set up basic testing directory structure and configuration for the backend using `pytest` in `/backend/tests`. (2025-05-05)
-- [x] Implement database connection and session management in `/backend/utils/db.py`. (2025-05-05)
-- [x] Define initial database models for agents using SQLModel. (2025-05-05)
-- [x] Implement agent creation and management API endpoints. (2025-05-05)
+This document tracks the specific tasks to be completed, aligning with the phases outlined in PLANNING.md.
 
-## Active Tasks
-- [ ] Set up basic testing directory structure and configuration for the frontend using `Jest` in `/frontend/tests`. (2025-05-05)
-- [ ] Implement workflow creation and management API endpoints. (2025-05-05)
-- [ ] Create React components for agent creation and management. (2025-05-05)
-- [ ] Set up state management with Zustand in the frontend. (2025-05-05)
-- [ ] Implement API client for the frontend to communicate with the backend. (2025-05-05)
-- [ ] Create agent framework wrappers for CrewAI and LangGraph. (2025-05-05)
+---
 
-## Backlog
-- [ ] Integrate Redis for Celery task queue.
-- [ ] Set up Celery for background task processing.
-- [ ] Implement Vector Database integration for agent memory.
-- [ ] Implement WebSocket endpoints for real-time communication.
-- [ ] Create workflow visualization and editing components.
-- [ ] Implement agent testing interface.
-- [ ] Add authentication and authorization.
-- [ ] Set up CI/CD pipeline.
-- [ ] Implement comprehensive logging and monitoring.
-- [ ] Create deployment scripts for production environments.
+## Phase 1: System Stability and Foundational Code Quality
+
+- [x] Task 1.1: Resolve version conflicts and incompatible packages (package.json, pnpm-lock.yaml).
+- [x] Task 1.2: Replace serverRuntimeConfig with experimental.serverActions in next.config.mjs.
+- [ ] Task 1.3: Remove ignoreBuildErrors and ignoreDuringBuilds from next.config.mjs and address underlying build issues.
+- [ ] Task 1.4: Adjust the regions setting in vercel.json to be less restrictive if needed.
+- [ ] Task 1.5: Use an environment variable for NEXT_PUBLIC_APP_URL in vercel.json.
+- [ ] Task 1.6: Implement strict TypeScript usage across the codebase.
+- [ ] Task 1.7: Replace all 'magic strings' with enums, unions, or literal types.
+- [ ] Task 1.8: Centralize theme (colors, fonts) in tailwind.config.js.
+- [ ] Task 1.9: Refactor components to use custom Tailwind theme classes.
+
+## Phase 2: Core Backend Processing Layer
+
+- [ ] Task 2.1: Integrate Redis/Celery (or similar) for background tasks.
+- [ ] Task 2.2: Implement Cron Scheduling Logic handler functions (/app/api/cron/workflow-scheduler/route.ts).
+- [ ] Task 2.3: Develop logic to query database for scheduled workflows.
+- [ ] Task 2.4: Develop logic to enqueue scheduled workflows into the background task system.
+- [ ] Task 2.5: Integrate foundational logging within the workflow execution process.
+- [ ] Task 2.6: Integrate foundational logging within the background task workers.
+
+## Phase 3: Agent Infrastructure and Testing
+
+- [ ] Task 3.1: Integrate a vector database for agent memory storage and retrieval.
+- [ ] Task 3.2: Refine the existing test setup.
+- [ ] Task 3.3: Implement unit tests for new backend logic (Task 2.1-2.6).
+- [ ] Task 3.4: Ensure tests cover expected behavior, edge cases, and failures.
+- [ ] Task 3.5: Implement an agent testing interface component/tool.
+
+## Phase 4: Frontend Structure and Consistency
+
+- [ ] Task 4.1: Split large components into smaller, focused files.
+- [ ] Task 4.2: Refactor repeated UI patterns into reusable components.
+- [ ] Task 4.3: Leverage centralized theme and standardized types in refactoring.
+- [ ] Task 4.4: Improve accessibility (color contrast, aria labels) in refactored components.
+- [ ] Task 4.5: Analyze application's data flow for shared state.
+- [ ] Task 4.6: Implement Global State Management solution.
+
+---
+
+**(Mark tasks with [x] when completed)**
