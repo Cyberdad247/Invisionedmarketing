@@ -1,0 +1,58 @@
+name: API Client Tests
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'frontend/src/api/**'
+      - 'frontend/tests/api/**'
+      - '.github/workflows/api-client-tests.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'frontend/src/api/**'
+      - 'frontend/tests/api/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+      
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm ci
+      
+      - name: Run API client tests
+        working-directory: ./frontend
+        run: npm run test:api
+      
+      - name: Run coverage report
+        working-directory: ./frontend
+        run: npm run test:coverage:ci
+      
+      - name: Upload coverage reports
+        uses: codecov/codecov-action@v3
+        with:
+          directory: ./frontend/coverage
+          flags: api-client
+      
+      - name: Performance tests
+        working-directory: ./frontend
+        run: npm run test:performance
+      
+      - name: Archive test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: |
+            frontend/reports/junit
+            frontend/coverage

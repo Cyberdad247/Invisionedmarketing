@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "test:integration": "jest --testMatch='**/tests/integration/**/*.test.{ts,tsx}'",
+    "test:unit": "jest --testMatch='**/tests/components/**/*.test.{ts,tsx}' --testMatch='**/tests/state/**/*.test.{ts,tsx}'",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "msw": "^0.47.4",
+    "@testing-library/user-event": "^14.4.3"
+  }
+}
