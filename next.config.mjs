@@ -16,9 +16,8 @@ const nextConfig = {
   },
   
   // Enable experimental server actions and configure function timeout
-  experimental: {
-    serverActions: true,
-    functionTimeout: 60, // seconds
+  experimental: { // Enable experimental server actions
+    serverActions: {},
   },
   
   // Configure redirects if needed
