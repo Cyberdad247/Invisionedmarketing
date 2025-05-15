@@ -4,7 +4,7 @@ import os
 import stripe
 import logfire
 
-from routes import health, agents, crew
+from routes import health, agents, crew, monitoring
 from backend.settings import settings
 from backend.aci_integration.routes import app_store
 
@@ -33,6 +33,7 @@ app.include_router(health.router, prefix="/api/v1")
 app.include_router(agents.router, prefix="/api/v1")
 app.include_router(crew.router, prefix="/api/v1")
 app.include_router(app_store.router, prefix="/api/v1")
+app.include_router(monitoring.router, prefix="/api/v1")
 
 # ACI Initialization Logic
 @app.on_event("startup")
