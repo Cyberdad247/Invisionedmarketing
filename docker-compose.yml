@@ -1,51 +1,95 @@
 version: '3.8'
 
 services:
-  frontend:
+  invisionedmarketing:
     build:
-      context: ./frontend
+      context: ./invisionedmarketing
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
     volumes:
-      - ./frontend:/app
+      - ./invisionedmarketing:/app
       - /app/node_modules
     environment:
       - NODE_ENV=development
-      - NEXT_PUBLIC_API_URL=http://backend:8000/api/v1
     depends_on:
-      - backend
-    command: npm run dev
+      - database
 
-  backend:
+  i-creations:
     build:
-      context: ./backend
+      context: ./i-creations
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./i-creations:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - database
+      - python-services
+
+  python-services:
+    build:
+      context: ./python-services
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
     volumes:
-      - ./backend:/app
+      - ./python-services:/app
     environment:
-      - NEON_DATABASE_URL=${NEON_DATABASE_URL}
-      - REDIS_URL=${REDIS_URL}
+      - PYTHONUNBUFFERED=1
     depends_on:
-      - redis
+      - database
 
-  redis:
-    image: redis:alpine
-    ports:
-      - "6379:6379"
-
-  celery_worker:
+  archon:
     build:
-      context: ./backend
+      context: ./archon
       dockerfile: Dockerfile
-    command: celery -A tasks.worker worker --loglevel=info
+    ports:
+      - "8001:8000"
     volumes:
-      - ./backend:/app
+      - ./archon:/app
     environment:
-      - DATABASE_URL=${NEON_DATABASE_URL}
-      - REDIS_URL=${REDIS_URL}
+      - PYTHONUNBUFFERED=1
     depends_on:
-      - redis
-      - backend
+      - database
+
+  camel:
+    build:
+      context: ./camel
+      dockerfile: Dockerfile
+    ports:
+      - "8002:8000"
+    volumes:
+      - ./camel:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  owl:
+    build:
+      context: ./owl
+      dockerfile: Dockerfile
+    ports:
+      - "8003:8000"
+    volumes:
+      - ./owl:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - camel
+
+  database:
+    image: postgres:14
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=integration_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
