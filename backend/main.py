@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.openapi.docs import get_swagger_ui_html, get_redoc_html
+from fastapi.openapi.utils import get_openapi
 import os
 import stripe
 import logfire
@@ -17,7 +19,14 @@ from backend.aci_integration.server import config as aci_config # Import ACI con
 from pythonjsonlogger.json import JsonFormatter
 # from aci.common.exceptions import ACIException # Import ACIException for exception handling - not needed in main.py
 
-app = FastAPI(title="Invisionedmarketing API")
+app = FastAPI(
+    title="Invisionedmarketing API",
+    description="API for Invisionedmarketing platform, providing agent and workflow management capabilities.",
+    version="1.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json"
+)
 
 # Configure CORS
 app.add_middleware(

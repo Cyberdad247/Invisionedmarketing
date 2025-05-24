@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Loader2 } from 'lucide-react';
 
 // Agent Maker Components
 import AgentCreationPanel from '@/components/agent-maker/agent-creation-panel';
@@ -118,9 +119,16 @@ export default function AgentMakerPage() {
                     <Button 
                       type="submit" 
                       disabled={isCreating || !agentName.trim() || !agentDescription.trim()}
-                      className="w-full"
+                      className="w-full flex items-center justify-center"
                     >
-                      {isCreating ? 'Creating Agent...' : 'Create Agent'}
+                      {isCreating ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Creating Agent...
+                        </>
+                      ) : (
+                        'Create Agent'
+                      )}
                     </Button>
                   </form>
                 </CardContent>

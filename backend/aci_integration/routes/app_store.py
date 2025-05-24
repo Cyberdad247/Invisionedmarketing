@@ -17,20 +17,32 @@ from backend.aci_integration.common.schemas.function import (
 )
 from backend.aci_integration.common.enums import FunctionDefinitionFormat
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/app-store",
+    tags=["app-store"],
+    description="Endpoints for accessing the AI Core Integration (ACI) App Store functions and tools"
+)
 
-@router.get("/functions", response_model=list[FunctionDetails])
+@router.get("/functions", response_model=list[FunctionDetails], summary="List App Store Functions", description="Get a paginated list of all available ACI tools and integrations")
 async def get_functions(
     context: Annotated[deps.RequestContext, Depends(deps.get_request_context)],
-    limit: int = Query(20, ge=1, le=1000),
-    offset: int = Query(0, ge=0),
+    limit: int = Query(20, ge=1, le=1000, description="Maximum number of functions to return (1-1000)"),
+    offset: int = Query(0, ge=0, description="Number of functions to skip for pagination"),
 ):
     """
     Retrieves a list of available ACI tools/integrations.
-
-    Includes basic validation for query parameters 'limit' and 'offset'
-    using FastAPI's Query with 'ge' (greater than or equal to) and 'le'
-    (less than or equal to) constraints.
+    
+    This endpoint returns a paginated list of all available AI Core Integration (ACI) 
+    tools and integrations that can be used by agents. Each function includes basic 
+    information such as name, description, and other metadata.
+    
+    Args:
+        context: The request context containing authentication and session information.
+        limit: Maximum number of functions to return (1-1000, default: 20).
+        offset: Number of functions to skip for pagination (default: 0).
+        
+    Returns:
+        list[FunctionDetails]: A list of function details objects.
     """
     # Call the embedded ACI code to get the list of tools/integrations
     # The aci_list_functions already returns the data in a suitable format (list of FunctionDetails)
@@ -47,6 +59,8 @@ async def get_functions(
     | AnthropicFunctionDefinition
     | OpenAIFunctionDefinition,
     response_model_exclude_none=True,
+    summary="Get Function Definition",
+    description="Get the detailed definition of a specific ACI function in various formats"
 )
 async def get_function_definition(
     context: Annotated[deps.RequestContext, Depends(deps.get_request_context)],
@@ -58,13 +72,22 @@ async def get_function_definition(
 ):
     """
     Retrieves the detailed definition for a specific ACI tool/integration.
-
-    Includes validation for the 'format' query parameter using FastAPI's Query
-    with an Enum. The 'function_name' is validated as a path parameter by FastAPI.
-
+    
+    This endpoint returns the complete definition of a specific AI Core Integration (ACI)
+    function, including its parameters, required fields, and other metadata. The definition
+    can be returned in different formats to support various AI model providers.
+    
     Args:
-        function_name: The name of the tool/integration.
-        format: The desired format for the function definition.
+        context: The request context containing authentication and session information.
+        function_name: The name of the tool/integration to retrieve.
+        format: The desired format for the function definition (openai_responses, openai, anthropic, or basic).
+        
+    Returns:
+        Union[OpenAIResponsesFunctionDefinition, BasicFunctionDefinition, AnthropicFunctionDefinition, OpenAIFunctionDefinition]:
+            The function definition in the requested format.
+            
+    Raises:
+        HTTPException: 404 error if the function is not found or an error occurs during retrieval.
     """
     try:
         # Call the embedded ACI code to get the definition for the specified tool/integration

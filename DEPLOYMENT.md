@@ -1,52 +1,40 @@
-# Deployment Guide for Cognito Platform
+# Deployment Guide: Secure Secrets Management
 
-## Environment Variables
+## Backend Deployment (Docker Example)
 
-Set up the following environment variables in your Vercel project:
+1. **Prepare your `.env` file** (never commit this to version control):
+   ```env
+   DATABASE_URL=your_database_url
+   OPENAI_API_KEY=your_openai_key
+   # ...other variables as in .env.example
+   ```
 
-### Database Configuration
-- `NEON_NEON_DATABASE_URL`: Your Neon PostgreSQL connection string
+2. **Run the backend with Docker, loading secrets from the environment:**
+   ```sh
+   docker build -t invisioned-backend ./backend
+   docker run --env-file .env -p 8000:8000 invisioned-backend
+   ```
 
-### n8n Configuration
-- `N8N_API_URL`: URL of your n8n instance (e.g., https://n8n.yourdomain.com)
-- `N8N_API_KEY`: API key for authenticating with n8n
+3. **Production (Cloud) Deployment:**
+   - Use your cloud provider's secrets manager (e.g., AWS Secrets Manager, Azure Key Vault, GCP Secret Manager) to inject environment variables at runtime.
+   - Never store secrets in code or Docker images.
 
-### AI Model Providers
-- `HUGGINGFACE_API_KEY`: API key for Hugging Face
-- `OPENAI_API_KEY`: API key for OpenAI
-- `ANTHROPIC_API_KEY`: API key for Anthropic
-- `OPENROUTER_API_KEY`: API key for OpenRouter
-- `MISTRAL_API_KEY`: API key for Mistral AI
+## Frontend Deployment (Next.js Example)
 
-### Blob Storage
-- `BLOB_READ_WRITE_TOKEN`: Token for Vercel Blob storage
+1. **Set environment variables with the `NEXT_PUBLIC_` prefix in your deployment environment.**
+2. **For Vercel/Netlify:** Use their dashboard to set environment variables securely.
+3. **For Docker:**
+   ```sh
+   docker build -t invisioned-frontend ./app
+   docker run --env-file .env -p 3000:3000 invisioned-frontend
+   ```
 
-### Application Configuration
-- `NEXTAUTH_SECRET`: Secret for NextAuth.js
-- `NEXTAUTH_URL`: URL for NextAuth.js (your deployed app URL)
-- `NEXT_PUBLIC_APP_URL`: Public URL of your application
+## Best Practices
+- Always use environment variables for secrets.
+- Use a secrets manager for production.
+- Ensure `.env` is in `.gitignore`.
+- Document all required variables in `.env.example`.
 
-## Deployment Steps
+---
 
-1. Install Vercel CLI: `npm install -g vercel`
-2. Login to Vercel: `vercel login`
-3. Link your project: `vercel link`
-4. Set up environment variables: `vercel env pull`
-5. Deploy to production: `npm run deploy`
-
-## Database Migrations
-
-Database migrations will run automatically during deployment. If you need to run them manually:
-
-\`\`\`bash
-npm run migrate
-\`\`\`
-
-## Troubleshooting
-
-If you encounter issues with the deployment:
-
-1. Check Vercel logs: `vercel logs`
-2. Verify environment variables are set correctly
-3. Ensure database connection is working
-4. Check n8n connection and API key
+For more details, see the comments in `backend/settings.py` and your cloud provider's documentation.

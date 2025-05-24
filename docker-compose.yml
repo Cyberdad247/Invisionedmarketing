@@ -7,11 +7,13 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
-    volumes:
-      - ./invisionedmarketing:/app
-      - /app/node_modules
+    # volumes:
+    #   - ./invisionedmarketing:/app
+    #   - /app/node_modules
+    env_file:
+      - .env
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
     depends_on:
       - database
 
@@ -24,8 +26,10 @@ services:
     volumes:
       - ./i-creations:/app
       - /app/node_modules
+    env_file:
+      - .env
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
     depends_on:
       - database
       - python-services
@@ -84,10 +88,8 @@ services:
     image: postgres:14
     ports:
       - "5432:5432"
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=integration_db
+    env_file:
+      - .env
     volumes:
       - postgres_data:/var/lib/postgresql/data
 

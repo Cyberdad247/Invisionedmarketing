@@ -12,16 +12,16 @@ from utils.db import get_db
 from agents.crew_agent import CrewAgent, CrewAgentConfig, CrewAITool
 from agents.crew_workflow import CrewWorkflow, CrewWorkflowConfig
 
-router = APIRouter(prefix="/crew", tags=["crew"])
+router = APIRouter(prefix="/crew", tags=["crew"], description="Endpoints for managing CrewAI agents and workflows")
 
 # ==================== Schema Definitions ====================
 
 class ToolRequest(BaseModel):
     """Schema for tool configuration in requests."""
-    name: str
-    description: str
-    function: Optional[str] = None
-    return_direct: bool = False
+    name: str = "The name of the tool"
+    description: str = "A description of what the tool does"
+    function: Optional[str] = Field(None, description="The function to execute when the tool is called")
+    return_direct: bool = Field(False, description="Whether to return the tool's output directly")
 
 class CrewAgentRequest(BaseModel):
     """Request schema for creating a CrewAI agent."""
@@ -783,9 +783,13 @@ async def stream_agent_response(agent: CrewAgent, input_text: str, db: Session, 
 
 # ----- Agent Endpoints -----
 
-@router.post("/agents", response_model=CrewAgentResponse, status_code=201)
+@router.post("/agents", response_model=CrewAgentResponse, status_code=201, summary="Create CrewAI Agent", description="Create a new CrewAI agent with specified configuration")
 async def create_crew_agent_endpoint(agent: CrewAgentRequest, db: Session = Depends(get_db)):
-    """Create a new CrewAI agent."""
+    """Create a new CrewAI agent.
+    
+    This endpoint allows creating a new CrewAI agent with the specified configuration.
+    CrewAI agents are specialized AI agents that can work together in a workflow.
+    """
     try:
         # Create the agent in the database
         agent_id = create_agent(db, agent)
@@ -799,13 +803,16 @@ async def create_crew_agent_endpoint(agent: CrewAgentRequest, db: Session = Depe
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to create agent: {str(e)}")
 
-@router.get("/agents", response_model=List[CrewAgentResponse])
+@router.get("/agents", response_model=List[CrewAgentResponse], summary="List CrewAI Agents", description="Get a list of all available CrewAI agents")
 async def list_crew_agents_endpoint(
-    skip: int = Query(0, ge=0),
-    limit: int = Query(100, ge=1, le=1000),
+    skip: int = Query(0, ge=0, description="Number of agents to skip"),
+    limit: int = Query(100, ge=1, le=1000, description="Maximum number of agents to return"),
     db: Session = Depends(get_db)
 ):
-    """List all CrewAI agents."""
+    """List all CrewAI agents.
+    
+    This endpoint returns a list of all CrewAI agents configured in the system.
+    """
     try:
         # Get agents from the database
         agents_data = list_agents(db, skip, limit)
@@ -962,9 +969,13 @@ async def list_agent_executions_endpoint(
 
 # ----- Workflow Endpoints -----
 
-@router.post("/workflows", response_model=CrewWorkflowResponse, status_code=201)
+@router.post("/workflows", response_model=CrewWorkflowResponse, status_code=201, summary="Create CrewAI Workflow", description="Create a new CrewAI workflow with specified configuration")
 async def create_crew_workflow_endpoint(workflow: CrewWorkflowRequest, db: Session = Depends(get_db)):
-    """Create a new CrewAI workflow."""
+    """Create a new CrewAI workflow.
+    
+    This endpoint allows creating a new CrewAI workflow with the specified configuration.
+    CrewAI workflows define how multiple agents work together to accomplish tasks.
+    """
     try:
         # Check if all agents exist
         for agent_id in workflow.agents:

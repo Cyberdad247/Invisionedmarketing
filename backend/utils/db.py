@@ -1,12 +1,9 @@
 from sqlmodel import SQLModel, create_engine, Session
-import os
 from typing import Generator
+from backend.settings import settings
 
-# Get the database URL from environment variables
-NEON_DATABASE_URL = os.environ.get("DATABASE_URL", "sqlite:///./test.db")
-
-# Create the SQLAlchemy engine
-engine = create_engine(DATABASE_URL, echo=True)
+# Use the database URL from the Settings object (which loads from environment variables)
+engine = create_engine(settings.DATABASE_URL, echo=True)
 
 def create_db_and_tables():
     """

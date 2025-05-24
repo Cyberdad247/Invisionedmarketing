@@ -1,21 +1,24 @@
-FROM node:20-alpine
-
+# Build stage
+FROM node:20-alpine AS builder
 WORKDIR /app
-
-# Copy package files
 COPY package*.json ./
-
-# Install dependencies
 RUN npm install
-
-# Copy the rest of the application
 COPY . .
-
-# Build the application
 RUN npm run build
 
-# Expose the port
-EXPOSE 3000
+# Production stage
+FROM node:20-alpine
+WORKDIR /app
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/next.config.mjs ./
+COPY --from=builder /app/tsconfig.json ./
 
-# Start the application
+# Create a non-root user and switch to it
+RUN addgroup -g 1001 -S appgroup && adduser -S appuser -u 1001 -G appgroup
+USER appuser
+
+EXPOSE 3000
 CMD ["npm", "start"]
